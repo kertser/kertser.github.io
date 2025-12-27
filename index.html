@@ -124,6 +124,19 @@
       .grid2{grid-template-columns:1fr}
       header{position:relative}
     }
+    .avatar-wrap{
+      display:flex;
+      justify-content:flex-start;
+      margin-bottom:14px;
+    }
+    .avatar{
+      width:120px;
+      height:120px;
+      object-fit:cover;
+      border-radius:50%;
+      border:2px solid rgba(122,162,255,.6);
+      box-shadow: 0 10px 30px rgba(0,0,0,.45);
+    }
   </style>
 </head>
 
@@ -149,6 +162,9 @@
 
     <main id="top" class="hero">
       <div class="card left">
+        <div class="avatar-wrap">
+          <img src="assets/avatar.jpg" alt="Mike Kertser portrait" class="avatar">
+        </div>
         <h1>Mike Kertser</h1>
         <p class="subtitle">
           Physicist & algorithm developer. I build physics-driven simulations and ML/DS solutions for real systems —
