@@ -9,6 +9,10 @@
   <meta name="theme-color" content="#0b1020" />
   <meta name="color-scheme" content="dark light" />
 
+  <!-- Favicon / icons (JPG works, but PNG/ICO is better if you later want full compatibility) -->
+  <link rel="icon" href="assets/myLogo.jpg" type="image/jpeg" />
+  <link rel="apple-touch-icon" href="assets/myLogo.jpg" />
+
   <!-- Open Graph (nice previews in messengers) -->
   <meta property="og:title" content="Alpha-Numerical — Mike Kertser" />
   <meta property="og:description" content="Physics-driven simulations and ML/DS engineering." />
@@ -79,12 +83,19 @@
     }
 
     .brand{display:flex; align-items:center; gap:12px; text-decoration:none}
+
+    /* LOGO: now an <img> with your assets/myLogo.jpg */
     .logo{
-      width:40px; height:40px; border-radius:14px;
-      background: linear-gradient(135deg, rgba(122,162,255,.95), rgba(123,255,218,.85));
+      width:40px; height:40px;
+      border-radius:14px;
       box-shadow: var(--shadow);
+      border: 1px solid rgba(42,53,104,.45);
+      background: rgba(8,12,28,.25);
+      object-fit: cover;
       flex: 0 0 auto;
+      display:block;
     }
+
     .brand strong{letter-spacing:.2px; font-weight:750}
     .brand small{display:block; color:var(--muted); font-size:12px; margin-top:2px}
 
@@ -322,7 +333,7 @@
   <div class="wrap">
     <header>
       <a class="brand" href="#top" aria-label="Alpha-Numerical home">
-        <div class="logo" aria-hidden="true"></div>
+        <img class="logo" src="assets/myLogo.jpg" alt="Alpha-Numerical logo" />
         <div>
           <strong>Alpha-Numerical</strong>
           <small>Physics × Algorithms × ML</small>
@@ -558,7 +569,7 @@
       </div>
 
       <div class="callout" style="margin-top:14px;">
-        If you want this to convert better: replace the 4 cards above with <b>3 real client-style case studies</b>
+        If you want this to convert better: replace the cards above with <b>3 real client-style case studies</b>
         (1–2 metrics each). Lists don’t sell. Outcomes sell.
       </div>
     </section>
@@ -613,7 +624,6 @@
     };
 
     const obs = new IntersectionObserver((entries) => {
-      // Pick the most visible intersecting section
       const visible = entries
         .filter(e => e.isIntersecting)
         .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
