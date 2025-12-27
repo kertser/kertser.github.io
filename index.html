@@ -1,12 +1,340 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Alpha-Numerical</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alpha-Numerical — Mike Kertser</title>
+  <meta name="description" content="Alpha-Numerical — Physics-driven simulations and machine-learning engineering. Mike Kertser." />
+  <meta name="color-scheme" content="dark light" />
+  <style>
+    :root{
+      --bg:#0b1020;
+      --card:#111833;
+      --text:#e8ecff;
+      --muted:#b9c2ffcc;
+      --line:#2a3568;
+      --accent:#7aa2ff;
+      --accent2:#7bffda;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+      --max: 1040px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font: 16px/1.55 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--text);
+      background:
+        radial-gradient(900px 400px at 20% 0%, rgba(122,162,255,.25), transparent 55%),
+        radial-gradient(800px 350px at 90% 10%, rgba(123,255,218,.18), transparent 60%),
+        linear-gradient(180deg, #070a14 0%, var(--bg) 40%, #060913 100%);
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 80px}
+    header{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px; position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(7,10,20,.55);
+      border-bottom:1px solid rgba(42,53,104,.35);
+      padding:14px 18px; margin:0 -18px 18px;
+    }
+    .brand{display:flex; align-items:center; gap:12px; text-decoration:none}
+    .logo{
+      width:38px; height:38px; border-radius:12px;
+      background: linear-gradient(135deg, rgba(122,162,255,.95), rgba(123,255,218,.85));
+      box-shadow: var(--shadow);
+    }
+    .brand strong{letter-spacing:.2px}
+    nav{display:flex; flex-wrap:wrap; gap:10px}
+    nav a{
+      text-decoration:none; font-size:14px; color:var(--muted);
+      padding:8px 10px; border-radius:12px;
+      border:1px solid transparent;
+    }
+    nav a:hover{border-color:rgba(122,162,255,.35); color:var(--text)}
+    .hero{
+      display:grid; grid-template-columns: 1.35fr .65fr; gap:18px;
+      align-items:stretch;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(17,24,51,.92), rgba(17,24,51,.78));
+      border: 1px solid rgba(42,53,104,.55);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .hero .left{padding:26px}
+    .hero .right{padding:22px}
+    h1{margin:0 0 10px; font-size:34px; line-height:1.15}
+    .subtitle{color:var(--muted); margin:0 0 18px; font-size:16px}
+    .chips{display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 0}
+    .chip{
+      font-size:13px; color:var(--muted);
+      padding:7px 10px; border-radius:999px;
+      border:1px solid rgba(42,53,104,.65);
+      background: rgba(8,12,28,.35);
+    }
+    .btns{display:flex; flex-wrap:wrap; gap:10px; margin-top:18px}
+    .btn{
+      display:inline-flex; gap:10px; align-items:center; justify-content:center;
+      padding:11px 14px; border-radius:14px;
+      text-decoration:none; font-weight:600; font-size:14px;
+      border:1px solid rgba(42,53,104,.75);
+      background: rgba(9,12,26,.5);
+    }
+    .btn.primary{
+      border-color: rgba(122,162,255,.6);
+      background: linear-gradient(135deg, rgba(122,162,255,.22), rgba(123,255,218,.14));
+    }
+    .btn:hover{transform: translateY(-1px); transition:.15s ease}
+    .mini{
+      display:grid; gap:10px
+    }
+    .kpi{
+      padding:12px 12px;
+      border-radius:16px;
+      border:1px solid rgba(42,53,104,.55);
+      background: rgba(8,12,28,.35);
+    }
+    .kpi b{display:block; font-size:14px; margin-bottom:4px}
+    .kpi span{color:var(--muted); font-size:13px}
+    section{margin-top:18px}
+    .grid3{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px}
+    .grid2{display:grid; grid-template-columns: repeat(2, 1fr); gap:14px}
+    .pad{padding:18px}
+    h2{margin:0 0 10px; font-size:18px}
+    p{margin:0; color:var(--muted)}
+    ul{margin:10px 0 0; padding-left:18px; color:var(--muted)}
+    li{margin:6px 0}
+    .timeline{display:grid; gap:12px}
+    .role{
+      padding:14px; border-radius:16px;
+      border:1px solid rgba(42,53,104,.55);
+      background: rgba(8,12,28,.35);
+    }
+    .role .top{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap}
+    .role .top b{font-size:14px}
+    .role .top em{font-style:normal; color:var(--muted); font-size:13px}
+    .role .org{color:var(--text)}
+    footer{margin-top:22px; color:var(--muted); font-size:13px; text-align:center}
+    .sep{height:1px; background: rgba(42,53,104,.55); margin:14px 0}
+    @media (max-width: 900px){
+      .hero{grid-template-columns:1fr}
+      .grid3{grid-template-columns:1fr}
+      .grid2{grid-template-columns:1fr}
+      header{position:relative}
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Alpha-Numerical</h1>
-  <p>Site is live.</p>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="#top">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <strong>Alpha-Numerical</strong><br/>
+          <span style="color:var(--muted); font-size:12px;">Physics × Algorithms × ML</span>
+        </div>
+      </a>
+      <nav aria-label="sections">
+        <a href="#services">Services</a>
+        <a href="#highlights">Highlights</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="top" class="hero">
+      <div class="card left">
+        <h1>Mike Kertser</h1>
+        <p class="subtitle">
+          Physicist & algorithm developer. I build physics-driven simulations and ML/DS solutions for real systems —
+          optics, thermal/flow dynamics, and data pipelines.
+        </p>
+        <div class="btns">
+          <a class="btn primary" href="assets/cv.pdf" target="_blank" rel="noopener">Download CV (PDF)</a>
+          <a class="btn" href="#contact">Contact</a>
+        </div>
+
+        <div class="chips" aria-label="focus areas">
+          <span class="chip">ML/DS (Python, MATLAB)</span>
+          <span class="chip">CFD / FEA / Multiphysics</span>
+          <span class="chip">Optical / Thermal / Hydraulic design</span>
+          <span class="chip">Optimization tools</span>
+          <span class="chip">Rapid prototyping / 3D printing</span>
+        </div>
+
+        <div class="sep"></div>
+        <p>
+          Currently: Head of Physics at Atlantium Technologies (UV & UV-LED disinfection systems).
+          Also operating as a self-employed developer under Alpha-Numerical.
+        </p>
+      </div>
+
+      <aside class="card right">
+        <div class="mini">
+          <div class="kpi">
+            <b>Current focus</b>
+            <span>R&D leadership, multidisciplinary simulations, ML/DL projects.</span>
+          </div>
+          <div class="kpi">
+            <b>Domains</b>
+            <span>UV systems • medical sensors • optics • thermofluidics • data science.</span>
+          </div>
+          <div class="kpi">
+            <b>Location / format</b>
+            <span>Israel • remote/partial engagements welcome.</span>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <section id="services" class="grid3">
+      <div class="card pad">
+        <h2>Simulation & engineering</h2>
+        <p>CFD/FEA/thermal/optical modelling, system physics, parametric studies, design trade-offs.</p>
+      </div>
+      <div class="card pad">
+        <h2>ML / Data Science</h2>
+        <p>Tabular & time-series pipelines, feature engineering, classical ML and deep learning, deployment-minded work.</p>
+      </div>
+      <div class="card pad">
+        <h2>Tools & prototypes</h2>
+        <p>Optimization calculators, dashboards, rapid prototypes, integration of physics + data.</p>
+      </div>
+    </section>
+
+    <section id="highlights" class="grid2">
+      <div class="card pad">
+        <h2>Selected highlights</h2>
+        <ul>
+          <li><span class="org">Atlantium Technologies</span> — Head of Physics (2020–present)</li>
+          <li><span class="org">Medtronic (Jerusalem)</span> — Senior Physicist (2015–2020)</li>
+          <li>Publication: Phys. Rev. B 81, 104110 (2010)</li>
+          <li>Patents across UV & medical sensing (selected list in CV)</li>
+        </ul>
+      </div>
+      <div class="card pad">
+        <h2>Professional stack</h2>
+        <ul>
+          <li>Python: NumPy, Pandas, scikit-learn, PyTorch / TensorFlow</li>
+          <li>Simulation: ANSYS, COMSOL, OpenFOAM, SolidWorks Simulation</li>
+          <li>Optics: TracePro / ASAP-style tooling</li>
+          <li>Dev: Git, Docker, DBs (MySQL/MongoDB)</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="experience" class="card pad">
+      <h2>Experience</h2>
+      <div class="timeline">
+        <div class="role">
+          <div class="top">
+            <b><span class="org">Atlantium Technologies</span> — Head of Physics</b>
+            <em>2020 – Present</em>
+          </div>
+          <ul>
+            <li>Leading multidisciplinary theoretical & experimental research; R&D projects for UV and UV-LED disinfection systems.</li>
+            <li>System physics, numerical calculations, and multi-domain simulations; optical/thermal/mechanical/hydraulic design.</li>
+            <li>ML/DL-related projects.</li>
+          </ul>
+        </div>
+
+        <div class="role">
+          <div class="top">
+            <b><span class="org">Alpha-Numerical</span> — Developer (self-employed)</b>
+            <em>2020 – Present</em>
+          </div>
+          <ul>
+            <li>Physical simulations (CFD/Mechanical/Thermal/Optical), numerical calculations.</li>
+            <li>Data Science / Machine Learning projects; rapid prototyping / 3D printing.</li>
+          </ul>
+        </div>
+
+        <div class="role">
+          <div class="top">
+            <b><span class="org">Medtronic</span> — Senior Physicist</b>
+            <em>2015 – 2020</em>
+          </div>
+          <ul>
+            <li>Predictive engineering (FEA/CFD/thermal/optical simulations) and optical sensors development.</li>
+            <li>Tech lead in capnography; end-to-end development including modelling, prototyping, testing, and production delivery.</li>
+          </ul>
+        </div>
+
+        <div class="role">
+          <div class="top">
+            <b><span class="org">Earlier</span> — NewCO2Fuels, Atlantium R&D, Intel, Tel-Aviv University</b>
+            <em>2003 – 2015</em>
+          </div>
+          <p>Full details and dates are in the CV PDF.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="grid2">
+      <div class="card pad">
+        <h2>Skills</h2>
+        <ul>
+          <li>Classical ML: clustering, decision trees, PCA, boosting, Monte-Carlo.</li>
+          <li>DL: NLP/CNN/RNN; PyTorch, TensorFlow/Keras.</li>
+          <li>Data: tabular/time-series, visualization, statistical modelling.</li>
+          <li>Software engineering: OOP/FP, desktop/GUI, embedded (RPi), web apps.</li>
+        </ul>
+      </div>
+      <div class="card pad">
+        <h2>Education & languages</h2>
+        <ul>
+          <li>M.Sc. Physics, Tel-Aviv University</li>
+          <li>B.Sc. Physics & CS, Ben-Gurion University</li>
+          <li>Languages: Russian (native), English & Hebrew (fluent)</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="projects" class="card pad">
+      <h2>Selected projects</h2>
+      <ul>
+        <li><b>UV systems optimizer tool:</b> web-based calculator and optimization tool (linear programming + multivariate modelling).</li>
+        <li><b>Keyboard Layout Switcher:</b> open-source DL model (positional embeddings + LSTM) — see GitHub.</li>
+        <li><b>Fake-News Detector:</b> NLP sentiment analysis pet-project.</li>
+        <li><b>Embedded face detector:</b> RPi0-W2 camera pipeline for classification.</li>
+      </ul>
+      <p style="margin-top:10px;">Want a tighter, more “business” set? I can rewrite this list into 3 polished case-studies.</p>
+    </section>
+
+    <section id="contact" class="grid2">
+      <div class="card pad">
+        <h2>Contact</h2>
+        <ul>
+          <li>Email: <a href="mailto:mike.kertser@alpha-numerical.com">mike.kertser@alpha-numerical.com</a></li>
+          <li>LinkedIn: <a href="https://www.linkedin.com/in/mike-kertser" target="_blank" rel="noopener">mike-kertser</a></li>
+          <li>GitHub: <a href="https://github.com/kertser" target="_blank" rel="noopener">kertser</a></li>
+        </ul>
+        <div class="btns">
+          <a class="btn primary" href="mailto:mike.kertser@alpha-numerical.com?subject=Alpha-Numerical%20inquiry">Email me</a>
+          <a class="btn" href="assets/cv.pdf" target="_blank" rel="noopener">CV PDF</a>
+        </div>
+      </div>
+      <div class="card pad">
+        <h2>What to write in the first email</h2>
+        <p>
+          3 lines is enough: (1) your domain/problem, (2) what output you need (report / model / prototype),
+          (3) timeline + constraints (data availability, NDA, etc.).
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="y"></span> Alpha-Numerical • Built on GitHub Pages
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
