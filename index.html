@@ -4,286 +4,482 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Alpha-Numerical — Mike Kertser</title>
-  <meta name="description" content="Alpha-Numerical — Physics-driven simulations and machine-learning engineering. Mike Kertser." />
+
+  <meta name="description" content="Alpha-Numerical — physics-driven simulations and machine-learning engineering. Mike Kertser." />
+  <meta name="theme-color" content="#0b1020" />
   <meta name="color-scheme" content="dark light" />
+
+  <!-- Open Graph (nice previews in messengers) -->
+  <meta property="og:title" content="Alpha-Numerical — Mike Kertser" />
+  <meta property="og:description" content="Physics-driven simulations and ML/DS engineering." />
+  <meta property="og:type" content="website" />
+  <!-- If you later add /assets/og.png, uncomment:
+  <meta property="og:image" content="https://www.alpha-numerical.com/assets/og.png" />
+  -->
+
   <style>
     :root{
-      --bg:#0b1020;
-      --card:#111833;
+      --bg0:#070a14;
+      --bg1:#0b1020;
+      --card0:rgba(17,24,51,.92);
+      --card1:rgba(17,24,51,.78);
       --text:#e8ecff;
-      --muted:#b9c2ffcc;
-      --line:#2a3568;
+      --muted:rgba(185,194,255,.82);
+      --line:rgba(42,53,104,.62);
+      --line2:rgba(42,53,104,.40);
       --accent:#7aa2ff;
       --accent2:#7bffda;
       --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --shadow2: 0 18px 60px rgba(0,0,0,.35);
       --radius: 18px;
-      --max: 1040px;
+      --radius2: 22px;
+      --max: 1100px;
+      --header-h: 72px;
     }
+
     *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
     body{
       margin:0;
-      font: 16px/1.55 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       color:var(--text);
       background:
-        radial-gradient(900px 400px at 20% 0%, rgba(122,162,255,.25), transparent 55%),
-        radial-gradient(800px 350px at 90% 10%, rgba(123,255,218,.18), transparent 60%),
-        linear-gradient(180deg, #070a14 0%, var(--bg) 40%, #060913 100%);
+        radial-gradient(900px 420px at 18% 0%, rgba(122,162,255,.26), transparent 56%),
+        radial-gradient(820px 360px at 92% 6%, rgba(123,255,218,.16), transparent 62%),
+        linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 38%, #050712 100%);
     }
+
     a{color:inherit}
-    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 80px}
-    header{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:16px; position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(10px);
-      background: rgba(7,10,20,.55);
-      border-bottom:1px solid rgba(42,53,104,.35);
-      padding:14px 18px; margin:0 -18px 18px;
+    .wrap{max-width:var(--max); margin:0 auto; padding:22px 18px 90px}
+
+    /* Accessibility */
+    .skip{
+      position:absolute; left:-9999px; top:auto;
+      width:1px; height:1px; overflow:hidden;
     }
+    .skip:focus{
+      position:fixed; left:18px; top:18px;
+      width:auto; height:auto; padding:10px 12px;
+      background:rgba(9,12,26,.92);
+      border:1px solid rgba(122,162,255,.55);
+      border-radius:14px;
+      z-index:9999;
+    }
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:50;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px;
+      padding:14px 18px;
+      margin:0 -18px 18px;
+      backdrop-filter: blur(10px);
+      background: rgba(7,10,20,.62);
+      border-bottom:1px solid rgba(42,53,104,.34);
+    }
+
     .brand{display:flex; align-items:center; gap:12px; text-decoration:none}
     .logo{
-      width:38px; height:38px; border-radius:12px;
+      width:40px; height:40px; border-radius:14px;
       background: linear-gradient(135deg, rgba(122,162,255,.95), rgba(123,255,218,.85));
       box-shadow: var(--shadow);
+      flex: 0 0 auto;
     }
-    .brand strong{letter-spacing:.2px}
-    nav{display:flex; flex-wrap:wrap; gap:10px}
+    .brand strong{letter-spacing:.2px; font-weight:750}
+    .brand small{display:block; color:var(--muted); font-size:12px; margin-top:2px}
+
+    nav{display:flex; flex-wrap:wrap; gap:8px}
     nav a{
-      text-decoration:none; font-size:14px; color:var(--muted);
-      padding:8px 10px; border-radius:12px;
+      text-decoration:none;
+      font-size:14px;
+      color:var(--muted);
+      padding:8px 10px;
+      border-radius:12px;
       border:1px solid transparent;
+      transition: transform .12s ease, border-color .12s ease, color .12s ease, background .12s ease;
     }
-    nav a:hover{border-color:rgba(122,162,255,.35); color:var(--text)}
-    .hero{
-      display:grid; grid-template-columns: 1.35fr .65fr; gap:18px;
-      align-items:stretch;
+    nav a:hover{
+      border-color:rgba(122,162,255,.35);
+      color:var(--text);
+      transform: translateY(-1px);
+      background: rgba(8,12,28,.22);
     }
+    nav a.active{
+      color:var(--text);
+      border-color: rgba(122,162,255,.52);
+      background: linear-gradient(135deg, rgba(122,162,255,.14), rgba(123,255,218,.08));
+    }
+
+    /* Cards & layout */
     .card{
-      background: linear-gradient(180deg, rgba(17,24,51,.92), rgba(17,24,51,.78));
-      border: 1px solid rgba(42,53,104,.55);
-      border-radius: var(--radius);
+      background: linear-gradient(180deg, var(--card0), var(--card1));
+      border: 1px solid rgba(42,53,104,.56);
+      border-radius: var(--radius2);
       box-shadow: var(--shadow);
     }
+
+    main.hero{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap:16px;
+      align-items:stretch;
+    }
+
     .hero .left{padding:26px}
     .hero .right{padding:22px}
-    h1{margin:0 0 10px; font-size:34px; line-height:1.15}
-    .subtitle{color:var(--muted); margin:0 0 18px; font-size:16px}
-    .chips{display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 0}
-    .chip{
-      font-size:13px; color:var(--muted);
-      padding:7px 10px; border-radius:999px;
+
+    .eyebrow{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:7px 10px;
+      border-radius:999px;
       border:1px solid rgba(42,53,104,.65);
-      background: rgba(8,12,28,.35);
+      background: rgba(8,12,28,.32);
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 14px;
     }
+    .dot{
+      width:8px; height:8px; border-radius:50%;
+      background: linear-gradient(135deg, rgba(122,162,255,.95), rgba(123,255,218,.85));
+      box-shadow: 0 0 0 4px rgba(122,162,255,.12);
+    }
+
+    h1{
+      margin:0 0 8px;
+      font-size: 36px;
+      line-height: 1.12;
+      letter-spacing: -.2px;
+    }
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size:16px;
+      max-width: 66ch;
+    }
+
     .btns{display:flex; flex-wrap:wrap; gap:10px; margin-top:18px}
     .btn{
       display:inline-flex; gap:10px; align-items:center; justify-content:center;
       padding:11px 14px; border-radius:14px;
-      text-decoration:none; font-weight:600; font-size:14px;
+      text-decoration:none; font-weight:700; font-size:14px;
       border:1px solid rgba(42,53,104,.75);
-      background: rgba(9,12,26,.5);
+      background: rgba(9,12,26,.50);
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      border-color: rgba(122,162,255,.42);
     }
     .btn.primary{
-      border-color: rgba(122,162,255,.6);
-      background: linear-gradient(135deg, rgba(122,162,255,.22), rgba(123,255,218,.14));
+      border-color: rgba(122,162,255,.62);
+      background: linear-gradient(135deg, rgba(122,162,255,.22), rgba(123,255,218,.12));
+      box-shadow: var(--shadow2);
     }
-    .btn:hover{transform: translateY(-1px); transition:.15s ease}
-    .mini{
-      display:grid; gap:10px
+
+    .chips{display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 0}
+    .chip{
+      font-size:13px;
+      color:var(--muted);
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(42,53,104,.65);
+      background: rgba(8,12,28,.28);
     }
+
+    .sep{height:1px; background: rgba(42,53,104,.55); margin:16px 0}
+
+    .aside-grid{display:grid; gap:10px}
     .kpi{
       padding:12px 12px;
       border-radius:16px;
       border:1px solid rgba(42,53,104,.55);
-      background: rgba(8,12,28,.35);
+      background: rgba(8,12,28,.30);
     }
     .kpi b{display:block; font-size:14px; margin-bottom:4px}
     .kpi span{color:var(--muted); font-size:13px}
-    section{margin-top:18px}
+
+    /* Avatar */
+    .avatar-row{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      margin-bottom: 8px;
+    }
+    .avatar{
+      width: 108px;
+      height: 108px;
+      border-radius: 50%;
+      object-fit: cover;
+      border:2px solid rgba(122,162,255,.62);
+      box-shadow: 0 12px 34px rgba(0,0,0,.45);
+      background: rgba(8,12,28,.30);
+      flex: 0 0 auto;
+    }
+    .nameblock{min-width: 0;}
+    .nameblock .roleline{
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    /* Sections */
+    section{margin-top:16px; scroll-margin-top: calc(var(--header-h) + 14px);}
+
     .grid3{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px}
     .grid2{display:grid; grid-template-columns: repeat(2, 1fr); gap:14px}
     .pad{padding:18px}
-    h2{margin:0 0 10px; font-size:18px}
+
+    h2{
+      margin:0 0 10px;
+      font-size:18px;
+      letter-spacing: -.1px;
+    }
     p{margin:0; color:var(--muted)}
     ul{margin:10px 0 0; padding-left:18px; color:var(--muted)}
     li{margin:6px 0}
-    .timeline{display:grid; gap:12px}
-    .role{
-      padding:14px; border-radius:16px;
+
+    .callout{
+      margin-top: 12px;
+      padding: 12px 12px;
+      border-radius: 16px;
       border:1px solid rgba(42,53,104,.55);
-      background: rgba(8,12,28,.35);
+      background: linear-gradient(135deg, rgba(122,162,255,.10), rgba(123,255,218,.06));
+      color: var(--muted);
+      font-size: 14px;
     }
-    .role .top{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap}
-    .role .top b{font-size:14px}
-    .role .top em{font-style:normal; color:var(--muted); font-size:13px}
-    .role .org{color:var(--text)}
-    footer{margin-top:22px; color:var(--muted); font-size:13px; text-align:center}
-    .sep{height:1px; background: rgba(42,53,104,.55); margin:14px 0}
-    @media (max-width: 900px){
-      .hero{grid-template-columns:1fr}
+
+    /* Experience timeline */
+    .timeline{display:grid; gap:12px}
+    .rolecard{
+      padding:14px;
+      border-radius:16px;
+      border:1px solid rgba(42,53,104,.55);
+      background: rgba(8,12,28,.28);
+    }
+    .rolecard .top{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom: 6px;
+    }
+    .rolecard .top b{font-size:14px}
+    .rolecard .top em{font-style:normal; color:var(--muted); font-size:13px}
+    .org{color:var(--text)}
+
+    /* Case-study cards */
+    .case{
+      padding:16px;
+      border-radius:18px;
+      border:1px solid rgba(42,53,104,.55);
+      background: rgba(8,12,28,.28);
+      transition: transform .12s ease, border-color .12s ease;
+    }
+    .case:hover{transform: translateY(-1px); border-color: rgba(122,162,255,.42)}
+    .case h3{margin:0 0 6px; font-size:15px}
+    .case .meta{color:var(--muted); font-size:13px; margin-bottom:10px}
+    .case .kv{display:grid; gap:8px; margin-top:10px}
+    .kv div{
+      padding:10px 10px;
+      border-radius:14px;
+      border:1px solid rgba(42,53,104,.48);
+      background: rgba(9,12,26,.35);
+      color:var(--muted);
+      font-size: 13px;
+    }
+    .kv b{color:var(--text); font-weight:700}
+
+    footer{
+      margin-top:22px;
+      color:var(--muted);
+      font-size:13px;
+      text-align:center;
+    }
+
+    /* Motion preferences */
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      nav a, .btn, .case{transition:none}
+      nav a:hover, .btn:hover, .case:hover{transform:none}
+    }
+
+    /* Responsive */
+    @media (max-width: 920px){
+      main.hero{grid-template-columns: 1fr}
       .grid3{grid-template-columns:1fr}
       .grid2{grid-template-columns:1fr}
       header{position:relative}
-    }
-    .avatar-wrap{
-      display:flex;
-      justify-content:flex-start;
-      margin-bottom:14px;
-    }
-    .avatar{
-      width:120px;
-      height:120px;
-      object-fit:cover;
-      border-radius:50%;
-      border:2px solid rgba(122,162,255,.6);
-      box-shadow: 0 10px 30px rgba(0,0,0,.45);
+      :root{--header-h: 0px;}
     }
   </style>
 </head>
 
 <body>
+  <a class="skip" href="#content">Skip to content</a>
+
   <div class="wrap">
     <header>
-      <a class="brand" href="#top">
+      <a class="brand" href="#top" aria-label="Alpha-Numerical home">
         <div class="logo" aria-hidden="true"></div>
         <div>
-          <strong>Alpha-Numerical</strong><br/>
-          <span style="color:var(--muted); font-size:12px;">Physics × Algorithms × ML</span>
+          <strong>Alpha-Numerical</strong>
+          <small>Physics × Algorithms × ML</small>
         </div>
       </a>
-      <nav aria-label="sections">
+
+      <nav aria-label="Sections">
         <a href="#services">Services</a>
         <a href="#highlights">Highlights</a>
         <a href="#experience">Experience</a>
         <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
+        <a href="#projects">Case studies</a>
         <a href="#contact">Contact</a>
       </nav>
     </header>
 
-    <main id="top" class="hero">
-      <div class="card left">
-        <div class="avatar-wrap">
-          <img src="assets/avatar.jpg" alt="Mike Kertser portrait" class="avatar">
+    <main id="top" class="hero" aria-label="Intro">
+      <section class="card left" id="content">
+        <div class="eyebrow"><span class="dot" aria-hidden="true"></span>Available for selected consulting & engineering work</div>
+
+        <div class="avatar-row">
+          <img src="assets/avatar.jpg" alt="Mike Kertser portrait" class="avatar" />
+          <div class="nameblock">
+            <h1 style="margin-bottom:2px;">Mike Kertser</h1>
+            <div class="roleline">Physicist • Algorithm developer • R&amp;D lead</div>
+          </div>
         </div>
-        <h1>Mike Kertser</h1>
+
         <p class="subtitle">
-          Physicist & algorithm developer. I build physics-driven simulations and ML/DS solutions for real systems —
-          optics, thermal/flow dynamics, and data pipelines.
+          I build <b>physics-driven simulations</b> and <b>ML/DS solutions</b> that ship:
+          optical/thermal/flow modeling, data pipelines, and decision tools for real systems.
         </p>
+
         <div class="btns">
           <a class="btn primary" href="assets/cv.pdf" target="_blank" rel="noopener">Download CV (PDF)</a>
           <a class="btn" href="#contact">Contact</a>
         </div>
 
-        <div class="chips" aria-label="focus areas">
+        <div class="chips" aria-label="Focus areas">
           <span class="chip">ML/DS (Python, MATLAB)</span>
           <span class="chip">CFD / FEA / Multiphysics</span>
-          <span class="chip">Optical / Thermal / Hydraulic design</span>
+          <span class="chip">Optical / Thermal / Hydraulics</span>
           <span class="chip">Optimization tools</span>
-          <span class="chip">Rapid prototyping / 3D printing</span>
+          <span class="chip">Rapid prototyping</span>
         </div>
 
         <div class="sep"></div>
-        <p>
-          Currently: Head of Physics at Atlantium Technologies (UV & UV-LED disinfection systems).
-          Also operating as a self-employed developer under Alpha-Numerical.
-        </p>
-      </div>
 
-      <aside class="card right">
-        <div class="mini">
+        <p>
+          Currently: <b>Head of Physics</b> at <span class="org">Atlantium Technologies</span> (UV &amp; UV-LED disinfection systems).
+          Also operating as a self-employed developer under <span class="org">Alpha-Numerical</span>.
+        </p>
+
+        <div class="callout">
+          <b>What you get:</b> a clear model/report/tool you can use — not “slides about future work”.
+          Typical outputs: validated simulation model, design trade-offs, prediction pipeline, or an optimizer/dashboard.
+        </div>
+      </section>
+
+      <aside class="card right" aria-label="Quick facts">
+        <div class="aside-grid">
           <div class="kpi">
             <b>Current focus</b>
-            <span>R&D leadership, multidisciplinary simulations, ML/DL projects.</span>
+            <span>R&amp;D leadership, multidisciplinary simulations, ML/DL projects.</span>
           </div>
           <div class="kpi">
             <b>Domains</b>
             <span>UV systems • medical sensors • optics • thermofluidics • data science.</span>
           </div>
           <div class="kpi">
-            <b>Location / format</b>
-            <span>Israel • remote/partial engagements welcome.</span>
+            <b>Engagement</b>
+            <span>Remote-first • Israel (GMT+2) • NDA-friendly.</span>
+          </div>
+          <div class="kpi">
+            <b>Fast start</b>
+            <span>Send 3 lines: problem → desired output → timeline/constraints.</span>
           </div>
         </div>
       </aside>
     </main>
 
-    <section id="services" class="grid3">
+    <section id="services" class="grid3" aria-label="Services">
       <div class="card pad">
         <h2>Simulation & engineering</h2>
-        <p>CFD/FEA/thermal/optical modelling, system physics, parametric studies, design trade-offs.</p>
+        <p>CFD/FEA/thermal/optical modeling, parametric sweeps, sensitivity, trade-offs, design decisions.</p>
       </div>
       <div class="card pad">
         <h2>ML / Data Science</h2>
-        <p>Tabular & time-series pipelines, feature engineering, classical ML and deep learning, deployment-minded work.</p>
+        <p>Tabular &amp; time-series pipelines, feature engineering, classical ML and DL, deployment-minded work.</p>
       </div>
       <div class="card pad">
         <h2>Tools & prototypes</h2>
-        <p>Optimization calculators, dashboards, rapid prototypes, integration of physics + data.</p>
+        <p>Optimization calculators, dashboards, automated reports, rapid prototypes bridging physics + data.</p>
       </div>
     </section>
 
-    <section id="highlights" class="grid2">
+    <section id="highlights" class="grid2" aria-label="Highlights">
       <div class="card pad">
         <h2>Selected highlights</h2>
         <ul>
           <li><span class="org">Atlantium Technologies</span> — Head of Physics (2020–present)</li>
           <li><span class="org">Medtronic (Jerusalem)</span> — Senior Physicist (2015–2020)</li>
-          <li>Publication: Phys. Rev. B 81, 104110 (2010)</li>
-          <li>Patents across UV & medical sensing (selected list in CV)</li>
+          <li>Publication: <span class="org">Phys. Rev. B 81, 104110</span> (2010)</li>
+          <li>Patents across UV &amp; medical sensing (details in CV)</li>
         </ul>
       </div>
       <div class="card pad">
-        <h2>Professional stack</h2>
+        <h2>Stack (short and honest)</h2>
         <ul>
           <li>Python: NumPy, Pandas, scikit-learn, PyTorch / TensorFlow</li>
           <li>Simulation: ANSYS, COMSOL, OpenFOAM, SolidWorks Simulation</li>
-          <li>Optics: TracePro / ASAP-style tooling</li>
-          <li>Dev: Git, Docker, DBs (MySQL/MongoDB)</li>
+          <li>Dev: Git, Docker, SQL/NoSQL (MySQL/MongoDB)</li>
+          <li>Prototyping: CAD, lab testing, 3D printing</li>
         </ul>
       </div>
     </section>
 
-    <section id="experience" class="card pad">
+    <section id="experience" class="card pad" aria-label="Experience">
       <h2>Experience</h2>
       <div class="timeline">
-        <div class="role">
+        <div class="rolecard">
           <div class="top">
             <b><span class="org">Atlantium Technologies</span> — Head of Physics</b>
             <em>2020 – Present</em>
           </div>
           <ul>
-            <li>Leading multidisciplinary theoretical & experimental research; R&D projects for UV and UV-LED disinfection systems.</li>
-            <li>System physics, numerical calculations, and multi-domain simulations; optical/thermal/mechanical/hydraulic design.</li>
-            <li>ML/DL-related projects.</li>
+            <li>Leading multidisciplinary theoretical &amp; experimental research; R&amp;D for UV and UV-LED systems.</li>
+            <li>System physics, numerical calculations, multi-domain simulations; optical/thermal/mechanical/hydraulic design.</li>
+            <li>ML/DL-related projects and decision tools.</li>
           </ul>
         </div>
 
-        <div class="role">
+        <div class="rolecard">
           <div class="top">
             <b><span class="org">Alpha-Numerical</span> — Developer (self-employed)</b>
             <em>2020 – Present</em>
           </div>
           <ul>
-            <li>Physical simulations (CFD/Mechanical/Thermal/Optical), numerical calculations.</li>
-            <li>Data Science / Machine Learning projects; rapid prototyping / 3D printing.</li>
+            <li>Physical simulations (CFD/Mechanical/Thermal/Optical) and numerical modeling.</li>
+            <li>Data Science / Machine Learning projects; rapid prototyping.</li>
           </ul>
         </div>
 
-        <div class="role">
+        <div class="rolecard">
           <div class="top">
             <b><span class="org">Medtronic</span> — Senior Physicist</b>
             <em>2015 – 2020</em>
           </div>
           <ul>
-            <li>Predictive engineering (FEA/CFD/thermal/optical simulations) and optical sensors development.</li>
-            <li>Tech lead in capnography; end-to-end development including modelling, prototyping, testing, and production delivery.</li>
+            <li>Predictive engineering (FEA/CFD/thermal/optical) and optical sensors development.</li>
+            <li>Tech lead in capnography; end-to-end work from modeling to production delivery.</li>
           </ul>
         </div>
 
-        <div class="role">
+        <div class="rolecard">
           <div class="top">
-            <b><span class="org">Earlier</span> — NewCO2Fuels, Atlantium R&D, Intel, Tel-Aviv University</b>
+            <b><span class="org">Earlier</span> — NewCO2Fuels, Atlantium R&amp;D, Intel, Tel-Aviv University</b>
             <em>2003 – 2015</em>
           </div>
           <p>Full details and dates are in the CV PDF.</p>
@@ -291,38 +487,83 @@
       </div>
     </section>
 
-    <section id="skills" class="grid2">
+    <section id="skills" class="grid2" aria-label="Skills and education">
       <div class="card pad">
         <h2>Skills</h2>
         <ul>
           <li>Classical ML: clustering, decision trees, PCA, boosting, Monte-Carlo.</li>
           <li>DL: NLP/CNN/RNN; PyTorch, TensorFlow/Keras.</li>
-          <li>Data: tabular/time-series, visualization, statistical modelling.</li>
-          <li>Software engineering: OOP/FP, desktop/GUI, embedded (RPi), web apps.</li>
+          <li>Data: tabular/time-series, visualization, statistical modeling.</li>
+          <li>Software engineering: OOP/FP, desktop/GUI, embedded, web apps.</li>
         </ul>
       </div>
+
       <div class="card pad">
-        <h2>Education & languages</h2>
+        <h2>Education &amp; languages</h2>
         <ul>
           <li>M.Sc. Physics, Tel-Aviv University</li>
-          <li>B.Sc. Physics & CS, Ben-Gurion University</li>
-          <li>Languages: Russian (native), English & Hebrew (fluent)</li>
+          <li>B.Sc. Physics &amp; CS, Ben-Gurion University</li>
+          <li>Russian (native), English &amp; Hebrew (fluent)</li>
         </ul>
+        <div class="callout" style="margin-top:14px;">
+          <b>Tip:</b> if you want this to be more “company-like”, we can rename the hero to
+          “Alpha-Numerical — Engineering &amp; Modeling” and move “Mike Kertser” one level down.
+        </div>
       </div>
     </section>
 
-    <section id="projects" class="card pad">
-      <h2>Selected projects</h2>
-      <ul>
-        <li><b>UV systems optimizer tool:</b> web-based calculator and optimization tool (linear programming + multivariate modelling).</li>
-        <li><b>Keyboard Layout Switcher:</b> open-source DL model (positional embeddings + LSTM) — see GitHub.</li>
-        <li><b>Fake-News Detector:</b> NLP sentiment analysis pet-project.</li>
-        <li><b>Embedded face detector:</b> RPi0-W2 camera pipeline for classification.</li>
-      </ul>
-      <p style="margin-top:10px;">Want a tighter, more “business” set? I can rewrite this list into 3 polished case-studies.</p>
+    <section id="projects" class="card pad" aria-label="Case studies">
+      <h2>Case studies (selected)</h2>
+
+      <div class="grid2" style="margin-top:12px;">
+        <div class="case">
+          <h3>UV Systems Optimizer</h3>
+          <div class="meta">Decision tool • optimization • modeling</div>
+          <p>Web-based calculator/optimizer for engineering decisions and trade-offs.</p>
+          <div class="kv">
+            <div><b>Problem:</b> too many coupled variables → slow design cycles.</div>
+            <div><b>Output:</b> optimizer + reportable model that guides choices.</div>
+          </div>
+        </div>
+
+        <div class="case">
+          <h3>Keyboard Layout Switcher (DL)</h3>
+          <div class="meta">NLP-ish • sequence models</div>
+          <p>DL model to predict and switch keyboard layouts reliably.</p>
+          <div class="kv">
+            <div><b>Problem:</b> noisy input patterns and ambiguity.</div>
+            <div><b>Output:</b> model + reproducible pipeline (see GitHub).</div>
+          </div>
+        </div>
+
+        <div class="case">
+          <h3>Fake-News Detector</h3>
+          <div class="meta">NLP • classification</div>
+          <p>Sentiment/feature pipelines and classification experiments.</p>
+          <div class="kv">
+            <div><b>Problem:</b> weak signals; dataset bias risk.</div>
+            <div><b>Output:</b> baseline models + evaluation framework.</div>
+          </div>
+        </div>
+
+        <div class="case">
+          <h3>Embedded Face Detector (RPi)</h3>
+          <div class="meta">Edge • camera pipeline</div>
+          <p>Lightweight face detection/classification pipeline on Raspberry Pi.</p>
+          <div class="kv">
+            <div><b>Problem:</b> tight compute + latency constraints.</div>
+            <div><b>Output:</b> deployable prototype with measurable performance.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top:14px;">
+        If you want this to convert better: replace the 4 cards above with <b>3 real client-style case studies</b>
+        (1–2 metrics each). Lists don’t sell. Outcomes sell.
+      </div>
     </section>
 
-    <section id="contact" class="grid2">
+    <section id="contact" class="grid2" aria-label="Contact">
       <div class="card pad">
         <h2>Contact</h2>
         <ul>
@@ -330,17 +571,22 @@
           <li>LinkedIn: <a href="https://www.linkedin.com/in/mike-kertser" target="_blank" rel="noopener">mike-kertser</a></li>
           <li>GitHub: <a href="https://github.com/kertser" target="_blank" rel="noopener">kertser</a></li>
         </ul>
+
         <div class="btns">
           <a class="btn primary" href="mailto:mike.kertser@alpha-numerical.com?subject=Alpha-Numerical%20inquiry">Email me</a>
           <a class="btn" href="assets/cv.pdf" target="_blank" rel="noopener">CV PDF</a>
         </div>
       </div>
+
       <div class="card pad">
-        <h2>What to write in the first email</h2>
+        <h2>Fastest way to start</h2>
         <p>
-          3 lines is enough: (1) your domain/problem, (2) what output you need (report / model / prototype),
+          Write 3 lines: (1) your domain/problem, (2) the output you want (report/model/prototype),
           (3) timeline + constraints (data availability, NDA, etc.).
         </p>
+        <div class="callout" style="margin-top:14px;">
+          If you’re hiring: include the role scope and interview timeline. If you’re a client: include budget range.
+        </div>
       </div>
     </section>
 
@@ -350,7 +596,34 @@
   </div>
 
   <script>
+    // Year
     document.getElementById("y").textContent = new Date().getFullYear();
+
+    // Active nav link highlighting
+    const navLinks = Array.from(document.querySelectorAll("header nav a"));
+    const sections = navLinks
+      .map(a => document.querySelector(a.getAttribute("href")))
+      .filter(Boolean);
+
+    const setActive = (id) => {
+      navLinks.forEach(a => {
+        const href = a.getAttribute("href");
+        a.classList.toggle("active", href === `#${id}`);
+      });
+    };
+
+    const obs = new IntersectionObserver((entries) => {
+      // Pick the most visible intersecting section
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+      if (visible && visible.target && visible.target.id) {
+        setActive(visible.target.id);
+      }
+    }, { root: null, threshold: [0.15, 0.25, 0.35, 0.5, 0.65] });
+
+    sections.forEach(sec => obs.observe(sec));
   </script>
 </body>
 </html>
