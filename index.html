@@ -307,6 +307,46 @@
       box-shadow:var(--glow-blue), var(--shadow-lg);
     }
 
+    .live-demos{
+      margin-bottom:28px;
+    }
+
+    .live-demos-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 14px;
+      border-radius:999px;
+      background:rgba(34,211,238,.10);
+      border:1px solid rgba(34,211,238,.20);
+      font-size:12px;
+      font-weight:600;
+      color:var(--accent-cyan);
+      margin-bottom:12px;
+    }
+
+    .live-demos-group{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .btn-live{
+      background:rgba(34,211,238,.10);
+      border-color:rgba(34,211,238,.30);
+      color:var(--accent-cyan);
+    }
+
+    .btn-live:hover{
+      background:rgba(34,211,238,.20);
+      border-color:rgba(34,211,238,.50);
+      box-shadow:0 0 20px rgba(34,211,238,.15), var(--shadow-lg);
+    }
+
+    .project-live a{
+      color:var(--accent-cyan);
+    }
+
     .tags{
       display:flex;
       flex-wrap:wrap;
@@ -993,6 +1033,21 @@
               </a>
             </div>
 
+            <div class="live-demos">
+              <div class="live-demos-badge">🚀 Live apps</div>
+              <div class="live-demos-group">
+                <a class="btn btn-live" href="https://smartvoter.alpha-numerical.com" target="_blank" rel="noopener">
+                  🗳️ SmartVoter
+                </a>
+                <a class="btn btn-live" href="https://tdg.alpha-numerical.com" target="_blank" rel="noopener">
+                  🎯 TDG — Table-D-Game
+                </a>
+                <a class="btn btn-live" href="https://spf.alpha-numerical.com" target="_blank" rel="noopener">
+                  📈 Portfolio Simulator (SPF)
+                </a>
+              </div>
+            </div>
+
             <div class="tags">
               <span class="tag">Python • MATLAB • C/C++</span>
               <span class="tag">ML/DS • Deep Learning</span>
@@ -1443,6 +1498,9 @@
               <div class="project-detail">
                 <strong>Repository:</strong> <a href="https://github.com/kertser/TDG" target="_blank" rel="noopener">github.com/kertser/TDG</a>
               </div>
+              <div class="project-detail project-live">
+                <strong>Live:</strong> <a href="https://tdg.alpha-numerical.com" target="_blank" rel="noopener">tdg.alpha-numerical.com</a>
+              </div>
             </div>
           </div>
 
@@ -1461,6 +1519,9 @@
               </div>
               <div class="project-detail">
                 <strong>Repository:</strong> <a href="https://github.com/kertser/SmartVoter" target="_blank" rel="noopener">github.com/kertser/SmartVoter</a>
+              </div>
+              <div class="project-detail project-live">
+                <strong>Live:</strong> <a href="https://smartvoter.alpha-numerical.com" target="_blank" rel="noopener">smartvoter.alpha-numerical.com</a>
               </div>
             </div>
           </div>
@@ -1518,6 +1579,9 @@
               </div>
               <div class="project-detail">
                 <strong>Repository:</strong> <a href="https://github.com/kertser/Stock_Portfolio_Simulation" target="_blank" rel="noopener">github.com/kertser/Stock_Portfolio_Simulation</a>
+              </div>
+              <div class="project-detail project-live">
+                <strong>Live:</strong> <a href="https://spf.alpha-numerical.com" target="_blank" rel="noopener">spf.alpha-numerical.com</a>
               </div>
             </div>
           </div>
